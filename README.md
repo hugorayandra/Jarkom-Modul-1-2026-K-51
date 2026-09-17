@@ -649,9 +649,8 @@ Karena user Mika dikonfigurasi sebagai read-only, operasi upload digunakan untuk
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot file
-* [ ] Screenshot lftp Mika
-* [ ] Screenshot Wireshark
+![loginftp](foto/soal8.png)
+![ftp](foto/filterftp8.png)
 
 ---
 
