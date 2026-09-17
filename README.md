@@ -1349,12 +1349,4 @@ Seluruh screenshot hasil praktikum dapat ditempatkan pada bagian ini atau langsu
 
 ---
 
-# Author
-
-**Muhammad Hugo Rayandra Esmid**
-NRP: 5027251076
-
-**Arrumanta Ekna Luhkinasih**
-NRP: 5027251044
-
 Praktikum Jaringan Komputer 2026
