@@ -93,17 +93,13 @@ Topology yang digunakan terdiri dari satu router Linux bernama **Lain**, tiga sw
 
 Router Lain digunakan sebagai gateway untuk seluruh subnet internal.
 
-4. SKEMA IP ADDRESS
-
-Pembagian network yang digunakan:
-
+4. Skema IP Address
+4.1 Pembagian Network
 Network	Gateway	Client
 10.89.1.0/24	10.89.1.1	Alice, Mika
 10.89.2.0/24	10.89.2.1	Chisa
 10.89.3.0/24	10.89.3.1	Knights, Eiri
-
-Detail IP:
-
+4.2 Detail IP Address
 Node	Interface	IP Address	Gateway
 Lain	eth0	DHCP	NAT1
 Lain	eth1	10.89.1.1/24	-
@@ -114,14 +110,15 @@ Mika	eth0	10.89.1.11/24	10.89.1.1
 Chisa	eth0	10.89.2.10/24	10.89.2.1
 Knights	eth0	10.89.3.10/24	10.89.3.1
 Eiri	eth0	10.89.3.11/24	10.89.3.1
-5. KONFIGURASI ROUTER LAIN
+5. Konfigurasi Router Lain
 
-Router Lain menggunakan Alpine Linux dan mempunyai empat interface:
+Router Lain menggunakan Alpine Linux dan memiliki empat interface:
 
-eth0 → NAT1
-eth1 → Switch1
-eth2 → Switch2
-eth3 → Switch3
+Interface	Koneksi
+eth0	NAT1
+eth1	Switch1
+eth2	Switch2
+eth3	Switch3
 5.1 Mengaktifkan Interface
 ip link set eth0 up
 ip link set eth1 up
@@ -130,7 +127,7 @@ ip link set eth3 up
 5.2 Mendapatkan IP dari NAT
 udhcpc -i eth0
 
-Memeriksa IP:
+Memeriksa IP address:
 
 ip -br a
 5.3 Konfigurasi IP Internal
@@ -158,11 +155,14 @@ Memeriksa tabel NAT:
 
 iptables -t nat -L -v -n
 5.6 Konfigurasi Forwarding Internet
+
+Mengizinkan traffic dari jaringan internal menuju internet:
+
 iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
 iptables -A FORWARD -i eth2 -o eth0 -j ACCEPT
 iptables -A FORWARD -i eth3 -o eth0 -j ACCEPT
 
-Response dari internet:
+Mengizinkan response dari internet menuju jaringan internal:
 
 iptables -A FORWARD -i eth0 -o eth1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 iptables -A FORWARD -i eth0 -o eth2 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
@@ -178,7 +178,10 @@ iptables -A FORWARD -i eth3 -o eth1 -j ACCEPT
 iptables -A FORWARD -i eth3 -o eth2 -j ACCEPT
 5.8 Pengujian
 ping -c 3 192.168.122.1
-6. KONFIGURASI CLIENT
+6. Konfigurasi Client
+
+Setiap client dikonfigurasi menggunakan IP address statis sesuai subnet masing-masing.
+
 6.1 Alice
 ip addr add 10.89.1.10/24 dev eth0
 ip link set eth0 up
@@ -208,20 +211,19 @@ ip link set eth0 up
 ip addr add 10.89.3.11/24 dev eth0
 ip route add default via 10.89.3.1
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
-7. NOMOR 5 — PERSISTENCE & SCRIPT VERIFIKASI
+7. Nomor 5 — Persistence & Script Verifikasi
 Tujuan
 
-Pada soal ini konfigurasi jaringan harus dapat diverifikasi setelah node mengalami restart.
+Memastikan konfigurasi jaringan dapat diverifikasi setelah node mengalami restart.
 
-Dibuat sebuah script pada router Lain:
+7.1 Membuat Script
+
+File:
 
 /root/cek_status.sh
 
-Script digunakan untuk menampilkan:
+Isi script:
 
-Ringkasan interface.
-Status tabel NAT.
-Isi Script
 #!/bin/sh
 
 echo "===== INTERFACE ====="
@@ -230,13 +232,9 @@ ip -br a
 echo
 echo "===== NAT TABLE ====="
 iptables -t nat -L -v -n
-
-Memberikan permission:
-
+7.2 Memberikan Permission
 chmod +x /root/cek_status.sh
-
-Menjalankan:
-
+7.3 Menjalankan Script
 /root/cek_status.sh
 Hasil yang Diharapkan
 ===== INTERFACE =====
@@ -246,23 +244,22 @@ Hasil yang Diharapkan
 ===== NAT TABLE =====
 
 [hasil iptables -t nat -L -v -n]
-Bukti
+Bukti Pengerjaan
 
-Screenshot hasil pengerjaan:
+Screenshot hasil script verifikasi
 
-[MASUKKAN SCREENSHOT NOMOR 5 DI SINI]
-8. NOMOR 6 — DNS & ICMP TRAFFIC
+8. Nomor 6 — DNS & ICMP Traffic
 Tujuan
 
-Menghasilkan traffic DNS dan ICMP kemudian menganalisisnya menggunakan Wireshark.
+Menghasilkan traffic DNS dan ICMP, kemudian menganalisisnya menggunakan Wireshark.
 
-Script
+8.1 Membuat Script
 
 File:
 
 /root/traffic_protocol7.sh
 
-Isi:
+Isi script:
 
 #!/bin/bash
 
@@ -289,32 +286,33 @@ dig @1.1.1.1 cloudflare.com AAAA
 echo
 
 echo "[*] Traffic generation complete."
-
-Memberikan permission:
-
+8.2 Memberikan Permission
 chmod +x /root/traffic_protocol7.sh
-
-Menjalankan:
-
+8.3 Menjalankan Script
 /root/traffic_protocol7.sh
-Capture Wireshark
+8.4 Capture Wireshark
 
 Pada node Mika:
 
 Klik kanan koneksi Mika.
 Pilih Start capture.
 Buka Wireshark.
-Jalankan script.
+Jalankan script traffic.
 Amati packet yang muncul.
-Filter DNS
+8.5 Filter Wireshark
+
+DNS
+
 dns
-Filter ICMP
+
+ICMP
+
 icmp
-Analisis
+8.6 Analisis
 
-DNS digunakan untuk melakukan resolusi nama domain.
+DNS digunakan untuk melakukan resolusi nama domain menjadi alamat IP.
 
-Contoh domain yang digunakan:
+Domain yang digunakan:
 
 google.com
 its.ac.id
@@ -322,38 +320,41 @@ github.com
 example.com
 cloudflare.com
 
-ICMP digunakan oleh ping untuk menguji konektivitas jaringan.
+ICMP digunakan oleh perintah ping untuk menguji konektivitas jaringan.
 
 Packet yang dapat diamati:
 
 Echo Request
 Echo Reply
-Bukti
-[SCREENSHOT SCRIPT NOMOR 6]
+Bukti Pengerjaan
 
-[SCREENSHOT WIRESHARK DNS]
+Screenshot script nomor 6
 
-[SCREENSHOT WIRESHARK ICMP]
-9. NOMOR 7 — KONFIGURASI FTP
+Screenshot Wireshark DNS
+
+Screenshot Wireshark ICMP
+
+9. Nomor 7 — Konfigurasi FTP
 Tujuan
 
-Membuat FTP server menggunakan vsftpd dan memberikan konfigurasi akses berbeda untuk setiap user.
+Membuat FTP server menggunakan vsftpd dengan hak akses berbeda untuk setiap user.
 
+9.1 Pembagian Hak Akses
 User	Password	Hak Akses
 alice	123	Dapat melakukan transfer
 mika	123	Read-only
 eiri	123	Ditolak
-Script
+9.2 Membuat Script
 
 File:
 
 /root/setup_ftp.sh
 
-Isi:
+Isi script:
 
 #!/bin/sh
 
-# 1. Update & Install
+# 1. Update dan install
 apk update
 apk add vsftpd lftp
 
@@ -405,51 +406,47 @@ echo "cmds_denied=STOR,DELE,MKD,RMD,APPE" >> /etc/vsftpd/user_conf/mika
 
 # 8. Menjalankan service
 /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf &
-
-Memberikan permission:
-
+9.3 Memberikan Permission
 chmod +x /root/setup_ftp.sh
-
-Menjalankan:
-
+9.4 Menjalankan Script
 bash /root/setup_ftp.sh
-Install FTP Client
+9.5 Install FTP Client
 
 Pada Alice, Mika, dan Eiri:
 
 apk update
 apk add lftp
+9.6 Pengujian Login FTP
 
-Contoh login:
+Alice
 
 lftp -u alice,123 10.89.2.10
 
-Untuk Mika:
+Mika
 
 lftp -u mika,123 10.89.2.10
 
-Untuk Eiri:
+Eiri
 
 lftp -u eiri,123 10.89.2.10
-Bukti
-[SCREENSHOT SETUP FTP]
+Bukti Pengerjaan
 
-[SCREENSHOT LOGIN ALICE]
+Screenshot setup FTP
 
-[SCREENSHOT LOGIN MIKA]
+Screenshot login Alice
 
-[SCREENSHOT LOGIN EIRI]
-10. NOMOR 8 — FTP KNIGHTS
+Screenshot login Mika
+
+Screenshot login Eiri
+
+10. Nomor 8 — FTP Knights
 Tujuan
 
 Melakukan transfer file menggunakan FTP dan menganalisis proses transfer tersebut.
 
-Login:
-
+10.1 Login FTP
 lftp -u alice 10.89.2.10
-
-Upload file:
-
+10.2 Upload File
 put /root/knights_report.txt
 
 Perintah put digunakan untuk mengirim file dari client menuju FTP server.
@@ -457,63 +454,66 @@ Perintah put digunakan untuk mengirim file dari client menuju FTP server.
 File yang dikirim:
 
 knights_report.txt
-Bukti
-[SCREENSHOT LOGIN FTP]
+Bukti Pengerjaan
 
-[SCREENSHOT PERINTAH PUT]
+Screenshot login FTP
 
-[SCREENSHOT WIRESHARK TRANSFER]
-11. NOMOR 9 — FTP MIKA
-Membuat File
+Screenshot perintah put
+
+Screenshot Wireshark transfer
+
+11. Nomor 9 — FTP Mika
+Tujuan
+
+Menguji pembatasan hak akses user Mika yang dikonfigurasi sebagai read-only.
+
+11.1 Membuat File
 
 Pada node Mika:
 
 echo "test upload mika" > /root/test_upload.txt
-
-Login FTP:
-
+11.2 Login FTP
 lftp -u mika,123 10.89.2.10
-
-Kemudian:
-
+11.3 Pengujian Upload
 put test_upload.txt
 
-Karena user Mika dikonfigurasi sebagai read-only, operasi upload digunakan untuk melihat bagaimana server menangani operasi yang tidak diperbolehkan.
+Karena user Mika dikonfigurasi sebagai read-only, operasi upload digunakan untuk menguji bagaimana server menangani operasi yang tidak diperbolehkan.
 
-Bukti
-[SCREENSHOT FILE]
+Bukti Pengerjaan
 
-[SCREENSHOT LFTP MIKA]
+Screenshot file
 
-[SCREENSHOT WIRESHARK]
-12. NOMOR 10 — ICMP TRAFFIC
+Screenshot lftp Mika
+
+Screenshot Wireshark
+
+12. Nomor 10 — ICMP Traffic
 Tujuan
 
 Menghasilkan sejumlah traffic ICMP dengan ukuran packet dan interval tertentu.
 
-Command:
-
+12.1 Command
 ping -c 77 -s 128 -i 0.3 10.89.2.10
-
-Keterangan:
-
+12.2 Keterangan Parameter
 Parameter	Keterangan
 -c 77	Mengirim 77 packet
 -s 128	Ukuran payload 128 byte
 -i 0.3	Interval 0,3 detik
 10.89.2.10	IP tujuan
-
-Filter Wireshark:
-
+12.3 Filter Wireshark
 icmp
-Bukti
-[SCREENSHOT NOMOR 10]
-13. NOMOR 11 — TELNET
+Bukti Pengerjaan
+
+Screenshot hasil nomor 10
+
+13. Nomor 11 — Telnet
 Tujuan
 
 Mengamati komunikasi Telnet dan menganalisis bagaimana data terminal dikirim melalui jaringan.
 
-Pada node Chisa:
+13.1 Konfigurasi pada Chisa
+
+Membuat user:
 
 adduser phantom_user
 
@@ -524,31 +524,29 @@ apk add busybox-extras
 Menjalankan Telnet daemon:
 
 telnetd
-
-Pada node Eiri:
-
+13.2 Koneksi dari Eiri
 telnet 10.89.2.10
 
 Login menggunakan user:
 
 phantom_user
-Filter Wireshark
+13.3 Filter Wireshark
 telnet
 
-atau:
+Alternatif:
 
 tcp.port == 23
-Mengapa Setiap Karakter Terkirim dalam Paket Terpisah?
+13.4 Analisis: Mengapa Setiap Karakter Dapat Terkirim Terpisah?
 
 Telnet merupakan protokol yang dirancang untuk komunikasi terminal secara interaktif.
 
 Ketika pengguna mengetik karakter, Telnet dapat langsung mengirimkan karakter tersebut ke server tanpa harus menunggu pengguna menekan Enter.
 
-Sebagai contoh ketika mengetik:
+Sebagai contoh, ketika mengetik:
 
 HELLO
 
-karakter:
+Karakter berikut dapat dikirim sebagai traffic TCP secara terpisah:
 
 H
 E
@@ -556,40 +554,38 @@ L
 L
 O
 
-dapat dikirim sebagai traffic TCP secara terpisah.
+Hal ini memungkinkan server merespons input terminal secara real-time. Namun, pengiriman karakter secara terpisah tidak selalu terjadi karena TCP dapat menggabungkan data.
 
-Hal ini memungkinkan server merespons input terminal secara real-time.
+Bukti Pengerjaan
 
-Bukti
-[SCREENSHOT TELNET LOGIN]
+Screenshot Telnet login
 
-[SCREENSHOT WIRESHARK TELNET]
-14. NOMOR 12 — NMAP
+Screenshot Wireshark Telnet
+
+14. Nomor 12 — Nmap
 Tujuan
 
-Melakukan pemeriksaan terhadap beberapa port pada host yang berada di lingkungan praktikum.
+Melakukan pemeriksaan terhadap beberapa port pada host di lingkungan praktikum.
 
-Command:
-
+14.1 Command
 nmap -p 22,80,777 10.89.3.10
-
-Port yang diperiksa:
-
+14.2 Port yang Diperiksa
 Port	Service Umum
 22	SSH
 80	HTTP
 777	Custom Service
-Bukti
-[SCREENSHOT HASIL NMAP]
+Bukti Pengerjaan
+
+Screenshot hasil Nmap
 
 Pengujian dilakukan pada host yang digunakan dalam lingkungan praktikum.
 
-15. NOMOR 13 — SSH
+15. Nomor 13 — SSH
 Tujuan
 
-Mempelajari autentikasi SSH menggunakan public key serta melihat perbedaan komunikasi SSH dengan Telnet.
+Mempelajari autentikasi SSH menggunakan public key serta mengamati perbedaan komunikasi SSH dengan Telnet.
 
-Konfigurasi Server
+15.1 Konfigurasi Server
 
 Pada node Knights:
 
@@ -602,7 +598,7 @@ echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 Menjalankan SSH server:
 
 /usr/sbin/sshd
-Membuat SSH Key
+15.2 Membuat SSH Key
 
 Pada node Mika:
 
@@ -615,12 +611,7 @@ ssh-copy-id root@10.89.3.10
 Login:
 
 ssh root@10.89.3.10
-Mengapa Kredensial Tidak Terlihat?
-
-SSH membangun koneksi terenkripsi sebelum data autentikasi dikirim.
-
-Secara sederhana prosesnya:
-
+15.3 Proses Komunikasi SSH
 Client
    |
    | Key Exchange
@@ -633,18 +624,23 @@ Authentication
    |
    v
 Secure Session
+15.4 Analisis: Mengapa Kredensial Tidak Terlihat?
+
+SSH membangun koneksi terenkripsi sebelum data autentikasi dikirim.
 
 Karena data dikirim melalui channel yang telah dienkripsi, password SSH tidak terlihat sebagai plain text pada Wireshark.
 
-Berbeda dengan Telnet yang mengirimkan data komunikasi secara terbuka.
+Berbeda dengan Telnet yang mengirimkan komunikasi secara terbuka.
 
-Bukti
-[SCREENSHOT SSH KEYGEN]
+Bukti Pengerjaan
 
-[SCREENSHOT SSH LOGIN]
+Screenshot SSH keygen
 
-[SCREENSHOT WIRESHARK SSH]
-16. NOMOR 14 — HTTP BRUTE FORCE
+Screenshot SSH login
+
+Screenshot Wireshark SSH
+
+16. Nomor 14 — HTTP Brute Force
 Tujuan
 
 Menganalisis traffic HTTP untuk menemukan informasi terkait percobaan autentikasi.
@@ -655,22 +651,22 @@ Filter:
 
 http.request.method == "POST"
 
-Kemudian lihat:
+Kemudian periksa:
 
 Source
 Destination
 
-Source IP menunjukkan host yang mengirim HTTP POST.
+Source IP menunjukkan host yang mengirim HTTP POST. Untuk menentukan host penyerang, cocokkan dengan konteks dan urutan traffic pada capture.
 
 16.2 Mencari Username dan Password
 
-Gunakan:
+Gunakan filter:
 
 http contains "lain_admin"
 
 Kemudian:
 
-Pilih packet.
+Pilih packet yang sesuai.
 Klik kanan.
 Pilih Follow.
 Pilih HTTP Stream.
@@ -687,13 +683,15 @@ Kemudian periksa bagian HTTP response untuk menemukan informasi server.
 
 Hasil
 KOMJAR26{W1r3d_Brut3_ofGWOszZFdRWl2gbaXEJsvORj}
-Bukti
-[SCREENSHOT HTTP POST]
+Bukti Pengerjaan
 
-[SCREENSHOT HTTP STREAM]
+Screenshot HTTP POST
 
-[SCREENSHOT WEB SERVER]
-17. NOMOR 15 — USB HID
+Screenshot HTTP Stream
+
+Screenshot Web Server
+
+17. Nomor 15 — USB HID
 Tujuan
 
 Menganalisis USB HID traffic untuk menemukan informasi perangkat USB dan pesan yang dikirim melalui keyboard.
@@ -729,52 +727,53 @@ Kemudian lihat nilai pada data HID.
 
 Nilai tersebut diterjemahkan menjadi karakter keyboard untuk memperoleh pesan rahasia.
 
-Bukti
-[SCREENSHOT USB DESCRIPTOR]
+Bukti Pengerjaan
 
-[SCREENSHOT USB ADDRESS]
+Screenshot USB Descriptor
 
-[SCREENSHOT HID KEYSTROKE]
+Screenshot USB Address
 
-[SCREENSHOT HASIL DECODE]
-18. NOMOR 16 — FTP MALWARE
+Screenshot HID Keystroke
+
+Screenshot hasil decode
+
+18. Nomor 16 — FTP Malware
 Tujuan
 
 Menganalisis komunikasi FTP untuk menemukan informasi mengenai transfer file malware.
 
-Langkah Analisis
-1. Mencari komunikasi FTP
+18.1 Mencari Komunikasi FTP
 
 Filter:
 
 ftp
 
-atau:
+Alternatif:
 
 tcp.port == 21
-2. Mencari Username dan Password
+18.2 Mencari Username dan Password
 
 Perhatikan command:
 
 USER
 PASS
-3. Mencari File Malware
+18.3 Mencari File Malware
 
 Perhatikan command:
 
 STOR
 RETR
 
-serta nama file yang ditransfer.
+Serta nama file yang ditransfer.
 
-4. Masuk ke Console Node
+18.4 Masuk ke Console Node
 
 Setelah mengetahui node yang terkait berdasarkan hasil analisis Wireshark, masuk ke console node tersebut.
 
 Contoh:
 
 Alice
-5. Menjalankan Netcat
+18.5 Menjalankan Netcat
 nc <IP_GROUP> 3403
 
 Contoh:
@@ -783,39 +782,37 @@ nc 10.x.x.x 3403
 
 Kemudian jawab pertanyaan yang diberikan oleh service.
 
-Bukti
-[SCREENSHOT FTP COMMUNICATION]
+Bukti Pengerjaan
 
-[SCREENSHOT MALWARE FILE]
+Screenshot FTP Communication
 
-[SCREENSHOT NC CHALLENGE]
+Screenshot Malware File
 
-[SCREENSHOT JAWABAN]
-19. NOMOR 17 — MALWARE DOWNLOAD
+Screenshot NC Challenge
+
+Screenshot Jawaban
+
+19. Nomor 17 — Malware Download
 Tujuan
 
 Menganalisis traffic untuk menemukan informasi mengenai malware yang diunduh.
 
-Informasi yang dicari:
-
-Host/domain tempat malware diunduh.
-IP server penyerang.
-Nama file executable.
-HTTP status code.
-Hasil
+Informasi yang Dicari
 Informasi	Jawaban
 Host/Domain	[ISI HASIL]
 IP Server	[ISI HASIL]
 Nama Executable	[ISI HASIL]
 HTTP Status Code	[ISI HASIL]
-Bukti
-[SCREENSHOT NOMOR 17]
-20. NOMOR 18 — SMB FILE TRANSFER
+Bukti Pengerjaan
+
+Screenshot nomor 17
+
+20. Nomor 18 — SMB File Transfer
 Tujuan
 
 Menganalisis transfer file menggunakan protokol SMB2.
 
-Hasil
+Hasil Analisis
 Informasi	Jawaban
 Protokol	SMB2
 IP Pengirim	10.7.3.100
@@ -830,27 +827,29 @@ File executable:
 
 wired_trojan_payload.exe
 
-dikirim dari:
+Dikirim dari:
 
 10.7.3.100
 
-menuju:
+Menuju:
 
 10.7.1.50
 
-dan diarahkan ke folder:
+Dan diarahkan ke folder:
 
 System32
-Bukti
-[SCREENSHOT SMB PACKET]
+Bukti Pengerjaan
 
-[SCREENSHOT SMB FILE TRANSFER]
-21. NOMOR 19 — SMTP THREAT
+Screenshot SMB Packet
+
+Screenshot SMB File Transfer
+
+21. Nomor 19 — SMTP Threat
 Tujuan
 
 Menganalisis komunikasi email menggunakan SMTP dan menemukan informasi ancaman yang terdapat di dalam pesan.
 
-Hasil
+Hasil Analisis
 Informasi	Jawaban
 Alamat Email Korban	victim@protocol7.co.jp
 Password yang Diklaim Bocor	pr0tocol_7_user
@@ -859,35 +858,25 @@ Batas Waktu	3 hari
 MailClientID	7719980706
 Analisis
 
-Alamat email korban:
+Berdasarkan hasil analisis email:
 
-victim@protocol7.co.jp
+Alamat email korban: victim@protocol7.co.jp
+Password yang disebutkan: pr0tocol_7_user
+Jenis malware: private ransomware
+Batas waktu: 3 hari
+MailClientID: 7719980706
+Bukti Pengerjaan
 
-Password yang disebutkan:
+Screenshot SMTP
 
-pr0tocol_7_user
+Screenshot Isi Email
 
-Jenis malware:
-
-private ransomware
-
-Batas waktu:
-
-3 hari
-
-MailClientID:
-
-7719980706
-Bukti
-[SCREENSHOT SMTP]
-
-[SCREENSHOT ISI EMAIL]
-22. NOMOR 20 — TLS DECRYPTION
+22. Nomor 20 — TLS Decryption
 Tujuan
 
 Menganalisis komunikasi TLS dan mengidentifikasi metadata koneksi HTTPS serta informasi HTTP request yang tersedia.
 
-Hasil
+Hasil Analisis
 Informasi	Jawaban
 TLS Version	TLS 1.2
 SNI / Domain	example.com
@@ -897,37 +886,24 @@ HTTP Method	HEAD
 HTTP Path	/
 Analisis
 
-Versi TLS:
+Berdasarkan hasil analisis traffic:
 
-TLS 1.2
+Versi TLS: TLS 1.2
+SNI: example.com
+IP server HTTPS: 93.184.216.34
+User-Agent: curl/7.62.0
+HTTP Method: HEAD
+HTTP Path: /
+Bukti Pengerjaan
 
-SNI:
+Screenshot TLS Version
 
-example.com
+Screenshot SNI
 
-IP server HTTPS:
+Screenshot HTTP Request
 
-93.184.216.34
-
-User-Agent:
-
-curl/7.62.0
-
-HTTP Method:
-
-HEAD
-
-HTTP Path:
-
-/
-Bukti
-[SCREENSHOT TLS VERSION]
-
-[SCREENSHOT SNI]
-
-[SCREENSHOT HTTP REQUEST]
-23. RINGKASAN HASIL PRAKTIKUM
-No	Topik	Status
+23. Ringkasan Hasil Praktikum
+No.	Topik	Status
 5	Persistence & Script Verifikasi	Selesai
 6	DNS & ICMP	Selesai
 7	FTP Setup	Selesai
@@ -944,7 +920,7 @@ No	Topik	Status
 18	SMB Transfer	Selesai
 19	SMTP Threat	Selesai
 20	TLS	Selesai
-24. KESIMPULAN
+24. Kesimpulan
 
 Praktikum Jaringan Komputer dengan skenario The Wired memberikan pengalaman dalam melakukan konfigurasi jaringan secara langsung menggunakan GNS3 dan melakukan analisis traffic menggunakan Wireshark.
 
@@ -960,38 +936,37 @@ Praktikum juga memperlihatkan perbedaan karakteristik keamanan beberapa protokol
 
 Dengan melakukan praktikum ini, pemahaman mengenai hubungan antara konfigurasi jaringan, komunikasi antar-host, protokol jaringan, serta proses network traffic analysis menjadi lebih baik.
 
-25. DOKUMENTASI FOTO
+25. Dokumentasi Foto
 
 Seluruh screenshot hasil praktikum dapat ditempatkan pada bagian ini atau langsung pada masing-masing nomor.
 
-Contoh format:
+Dokumentasi Nomor 5
 
-## Dokumentasi Nomor 5
 
-![Bukti Nomor 5](screenshots/05-cek-status.png)
 
-Contoh apabila nama file screenshot adalah:
 
-screenshots/06-dns.png
+Dokumentasi Nomor 6
 
-maka gunakan:
 
-![Bukti DNS](screenshots/06-dns.png)
-26. CATATAN
 
-Beberapa hasil yang diperoleh melalui analisis packet capture dapat berbeda apabila file capture, topology, atau konfigurasi yang digunakan berbeda.
 
+Dokumentasi Nomor 7
+
+
+
+
+Sesuaikan nama file gambar dengan screenshot yang sudah dimasukkan ke repository.
+
+26. Catatan
+Beberapa hasil analisis packet capture dapat berbeda apabila file capture, topology, atau konfigurasi yang digunakan berbeda.
 IP address pada bagian konfigurasi client harus disesuaikan dengan topology yang digunakan pada praktikum.
-
 Seluruh aktivitas scanning dan analisis jaringan dilakukan pada lingkungan praktikum yang telah disediakan.
+Author
 
-AUTHOR
 Muhammad Hugo Rayandra Esmid
-
 NRP: 5027251076
 
 Arrumanta Ekna Luhkinasih
-
 NRP: 5027251044
 
 Praktikum Jaringan Komputer 2026
