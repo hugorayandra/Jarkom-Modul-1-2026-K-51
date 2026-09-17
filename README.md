@@ -100,7 +100,7 @@ Tujuan praktikum meliputi:
 
 Topologi yang digunakan terdiri dari satu router Linux bernama **Lain**, tiga switch, lima client, serta satu NAT.
 
-<!-- foto -->
+![topologi](assets/topologi.png)
 
 Router **Lain** digunakan sebagai gateway untuk seluruh subnet internal.
 
