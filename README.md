@@ -614,8 +614,8 @@ knights_report.txt
 
 ### Bukti Pengerjaan
 
-![loginftp](foto/soal8.png)
-![ftp](foto/filterftp8.png)
+![put](foto/soal9.png)
+![ftp9](foto/filterftp9.png)
 
 ---
 
