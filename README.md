@@ -1222,9 +1222,8 @@ Berdasarkan hasil analisis traffic:
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot TLS Version
-* [ ] Screenshot SNI
-* [ ] Screenshot HTTP Request
+![Sudah Berhasil](image/Screenshot 2026-09-17 012008.png)
+
 
 ---
 
