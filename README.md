@@ -67,7 +67,7 @@ Tujuan praktikum antara lain:
 
 Topology yang digunakan terdiri dari satu router Linux bernama **Lain**, tiga switch, lima client, serta satu NAT.
 
-```text
+
                          ┌─────────────┐
                          │    NAT1     │
                          └──────┬──────┘
