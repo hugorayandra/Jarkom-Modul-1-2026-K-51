@@ -1080,10 +1080,7 @@ Kemudian jawab pertanyaan yang diberikan oleh service.
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot FTP Communication
-* [ ] Screenshot Malware File
-* [ ] Screenshot NC Challenge
-* [ ] Screenshot Jawaban
+![Soal 16](soal16.png)
 
 ---
 
@@ -1097,10 +1094,10 @@ Menganalisis traffic untuk menemukan informasi mengenai malware yang diunduh.
 
 | Informasi        | Jawaban     |
 | ---------------- | ----------- |
-| Host/Domain      | [ISI HASIL] |
-| IP Server        | [ISI HASIL] |
-| Nama Executable  | [ISI HASIL] |
-| HTTP Status Code | [ISI HASIL] |
+| Host/Domain      | [Wired-update.net] |
+| IP Server        | [203.0.113.42] |
+| Nama Executable  | [navi_agent.exe] |
+| HTTP Status Code | [200] |
 
 ### Bukti Pengerjaan
 
@@ -1154,8 +1151,8 @@ System32
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot SMB Packet
-* [ ] Screenshot SMB File Transfer
+![Soal 18](soal18.png)
+
 
 ---
 
@@ -1187,8 +1184,7 @@ Berdasarkan hasil analisis email:
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot SMTP
-* [ ] Screenshot Isi Email
+![Soal 19](soal19.png)
 
 ---
 
@@ -1222,7 +1218,7 @@ Berdasarkan hasil analisis traffic:
 
 ### Bukti Pengerjaan
 
-![Screenshot Praktikum](images/Screenshot%202026-09-17%20012008.png)
+![Soal 20](soal20.png)
 
 
 ---
