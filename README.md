@@ -1094,10 +1094,10 @@ Menganalisis traffic untuk menemukan informasi mengenai malware yang diunduh.
 
 | Informasi        | Jawaban     |
 | ---------------- | ----------- |
-| Host/Domain      | [Wired-update.net] |
-| IP Server        | [203.0.113.42] |
-| Nama Executable  | [navi_agent.exe] |
-| HTTP Status Code | [200] |
+| Host/Domain      | `Wired-update.net` |
+| IP Server        | `203.0.113.42` |
+| Nama Executable  | `navi_agent.exe` |
+| HTTP Status Code | `200` |
 
 ### Bukti Pengerjaan
 
@@ -1115,7 +1115,7 @@ Menganalisis transfer file menggunakan protokol SMB2.
 
 | Informasi     | Jawaban                    |
 | ------------- | -------------------------- |
-| Protokol      | SMB2                       |
+| Protokol      | `SMB2`                      |
 | IP Pengirim   | `10.7.3.100`               |
 | IP Penerima   | `10.7.1.50`                |
 | Folder Tujuan | `System32`                 |
