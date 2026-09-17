@@ -6,7 +6,7 @@ Repository ini berisi laporan Praktikum Jaringan Komputer 2026 dengan skenario *
 
 ---
 
-## Identitas Kelompok
+## Identitas Kelompok K-51
 
 | No. | Nama                         |     NRP    |
 | :-: | ---------------------------- | :--------: |
