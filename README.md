@@ -41,8 +41,6 @@ Repository ini berisi laporan Praktikum Jaringan Komputer 2026 dengan skenario *
 * [22. Nomor 20 — TLS Decryption](#22-nomor-20--tls-decryption)
 * [23. Ringkasan Hasil Praktikum](#23-ringkasan-hasil-praktikum)
 * [24. Kesimpulan](#24-kesimpulan)
-* [25. Dokumentasi Foto](#25-dokumentasi-foto)
-* [26. Catatan](#26-catatan)
 * [Author](#author)
 
 ---
@@ -102,27 +100,7 @@ Tujuan praktikum meliputi:
 
 Topologi yang digunakan terdiri dari satu router Linux bernama **Lain**, tiga switch, lima client, serta satu NAT.
 
-```mermaid
-flowchart TB
-    NAT["NAT1"] --- eth0["eth0"]
-    eth0 --- Lain["Lain<br/>Router"]
-
-    Lain --- eth1["eth1"]
-    Lain --- eth2["eth2"]
-    Lain --- eth3["eth3"]
-
-    eth1 --- SW1["Switch 1"]
-    eth2 --- SW2["Switch 2"]
-    eth3 --- SW3["Switch 3"]
-
-    SW1 --- Alice["Alice"]
-    SW1 --- Mika["Mika"]
-
-    SW2 --- Chisa["Chisa"]
-
-    SW3 --- Knights["Knights"]
-    SW3 --- Eiri["Eiri"]
-```
+<!-- foto -->
 
 Router **Lain** digunakan sebagai gateway untuk seluruh subnet internal.
 
@@ -365,21 +343,9 @@ chmod +x /root/cek_status.sh
 /root/cek_status.sh
 ```
 
-### Hasil yang Diharapkan
-
-```text
-===== INTERFACE =====
-
-[hasil ip -br a]
-
-===== NAT TABLE =====
-
-[hasil iptables -t nat -L -v -n]
-```
-
 ### Bukti Pengerjaan
 
-* [ ] Screenshot hasil script verifikasi
+![Hasil pengerjaan nomor 5](assets/nomor5.png)
 
 ---
 
@@ -614,10 +580,9 @@ lftp -u eiri,123 10.89.2.10
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot setup FTP
-* [ ] Screenshot login Alice
-* [ ] Screenshot login Mika
-* [ ] Screenshot login Eiri
+![Login melalui Alice](assets/nomor6_1.png)
+![Login melalui Eiri](assets/nomor6_2.png)
+![Login melalui Mika](assets/nomor6_3.png)
 
 ---
 
@@ -720,7 +685,8 @@ icmp
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot hasil nomor 10
+![Bukti pengiriman paket](assets/nomor10_1.png)
+![Bukti filter wireshark    ](assets/nomor10_2.png)
 
 ---
 
@@ -800,8 +766,7 @@ Hal ini memungkinkan server merespons input terminal secara real-time. Namun, pe
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot Telnet login
-* [ ] Screenshot Wireshark Telnet
+![alt](assets/nomor11.png)
 
 ---
 
@@ -829,7 +794,7 @@ Pengujian dilakukan pada host yang digunakan dalam lingkungan praktikum.
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot hasil Nmap
+![alt](assets/nomor12.png)
 
 ---
 
@@ -899,9 +864,9 @@ Berbeda dengan Telnet yang mengirimkan komunikasi secara terbuka.
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot SSH keygen
-* [ ] Screenshot SSH login
-* [ ] Screenshot Wireshark SSH
+![ssh keygen](assets/nomor13_1.png)
+![ssh login](assets/nomor13_2.png)
+![wireshark ssh](assets/nomor13_3.png)
 
 ---
 
@@ -961,9 +926,10 @@ KOMJAR26{W1r3d_Brut3_ofGWOszZFdRWl2gbaXEJsvORj}
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot HTTP POST
-* [ ] Screenshot HTTP Stream
-* [ ] Screenshot Web Server
+![http post](assets/nomor14_1.png)
+![http stream](assets/nomor14_1.png)
+![web server](assets/nomor14_1.png)
+![validasi temuan 14](assets/validasi14.png)
 
 ---
 
@@ -1003,14 +969,13 @@ usb.transfer_type == 0x01 && usbhid.data
 
 Kemudian lihat nilai pada data HID.
 
-Nilai tersebut diterjemahkan menjadi karakter keyboard untuk memperoleh pesan rahasia.
+Nilai tersebut diterjemahkan menjadi karakter keyboard untuk memperoleh pesan rahasia yaitu ``Wired_Protocol_7_is_alive_2026``.
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot USB Descriptor
-* [ ] Screenshot USB Address
-* [ ] Screenshot HID Keystroke
-* [ ] Screenshot hasil decode
+![VID HID USB](assets/nomor15_vidhid.png)
+![USB ADRESS](assets/nomor15_usbaddress.png)
+![validasi temuan 15](assets/validasi15.png)
 
 ---
 
@@ -1266,86 +1231,6 @@ Wireshark digunakan untuk menganalisis packet secara lebih detail sehingga infor
 Praktikum juga memperlihatkan perbedaan karakteristik keamanan beberapa protokol. Telnet mengirimkan komunikasi secara terbuka sehingga isi komunikasi dapat diamati dengan lebih mudah, sedangkan SSH menggunakan enkripsi untuk melindungi data selama komunikasi.
 
 Dengan melakukan praktikum ini, pemahaman mengenai hubungan antara konfigurasi jaringan, komunikasi antar-host, protokol jaringan, serta proses network traffic analysis menjadi lebih baik.
-
----
-
-# 25. Dokumentasi Foto
-
-Seluruh screenshot hasil praktikum dapat ditempatkan pada bagian ini atau langsung pada masing-masing nomor.
-
-> Ganti nama file gambar sesuai screenshot yang dimasukkan ke repository.
-
-## Dokumentasi Nomor 5
-
-<!-- Masukkan screenshot nomor 5 di sini -->
-
-## Dokumentasi Nomor 6
-
-<!-- Masukkan screenshot nomor 6 di sini -->
-
-## Dokumentasi Nomor 7
-
-<!-- Masukkan screenshot nomor 7 di sini -->
-
-## Dokumentasi Nomor 8
-
-<!-- Masukkan screenshot nomor 8 di sini -->
-
-## Dokumentasi Nomor 9
-
-<!-- Masukkan screenshot nomor 9 di sini -->
-
-## Dokumentasi Nomor 10
-
-<!-- Masukkan screenshot nomor 10 di sini -->
-
-## Dokumentasi Nomor 11
-
-<!-- Masukkan screenshot nomor 11 di sini -->
-
-## Dokumentasi Nomor 12
-
-<!-- Masukkan screenshot nomor 12 di sini -->
-
-## Dokumentasi Nomor 13
-
-<!-- Masukkan screenshot nomor 13 di sini -->
-
-## Dokumentasi Nomor 14
-
-<!-- Masukkan screenshot nomor 14 di sini -->
-
-## Dokumentasi Nomor 15
-
-<!-- Masukkan screenshot nomor 15 di sini -->
-
-## Dokumentasi Nomor 16
-
-<!-- Masukkan screenshot nomor 16 di sini -->
-
-## Dokumentasi Nomor 17
-
-<!-- Masukkan screenshot nomor 17 di sini -->
-
-## Dokumentasi Nomor 18
-
-<!-- Masukkan screenshot nomor 18 di sini -->
-
-## Dokumentasi Nomor 19
-
-<!-- Masukkan screenshot nomor 19 di sini -->
-
-## Dokumentasi Nomor 20
-
-<!-- Masukkan screenshot nomor 20 di sini -->
-
----
-
-# 26. Catatan
-
-1. Beberapa hasil analisis packet capture dapat berbeda apabila file capture, topologi, atau konfigurasi yang digunakan berbeda.
-2. IP address pada bagian konfigurasi client harus disesuaikan dengan topologi yang digunakan pada praktikum.
-3. Seluruh aktivitas scanning dan analisis jaringan dilakukan pada lingkungan praktikum yang telah disediakan.
 
 ---
 
