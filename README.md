@@ -1104,7 +1104,7 @@ Menganalisis traffic untuk menemukan informasi mengenai malware yang diunduh.
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot nomor 17
+![Soal 17](soal17.png)
 
 ---
 
