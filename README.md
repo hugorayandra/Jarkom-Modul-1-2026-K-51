@@ -1222,7 +1222,7 @@ Berdasarkan hasil analisis traffic:
 
 ### Bukti Pengerjaan
 
-![Sudah Berhasil](image/Screenshot 2026-09-17 012008.png)
+![Screenshot Praktikum](images/Screenshot%202026-09-17%20012008.png)
 
 
 ---
