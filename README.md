@@ -1,6 +1,6 @@
 # Praktikum Jaringan Komputer 2026
 
-## The Wired — Modul 1
+## Serial Experiments LAIN — Modul 1
 
 Repository ini berisi laporan Praktikum Jaringan Komputer 2026 dengan skenario **The Wired**. Praktikum dilakukan menggunakan GNS3 dan Wireshark untuk mempelajari konfigurasi jaringan, routing, NAT, berbagai layanan jaringan, serta analisis packet capture.
 
@@ -10,8 +10,8 @@ Repository ini berisi laporan Praktikum Jaringan Komputer 2026 dengan skenario *
 
 | No. | Nama                         |     NRP    |
 | :-: | ---------------------------- | :--------: |
-|  1  | Muhammad Hugo Rayandra Esmid | 5027251076 |
-|  2  | Arrumanta Ekna Luhkinasih    | 5027251044 |
+|  1  | Arrumanta Ekna Luhkinasih | 5027251044 |
+|  2  | Muhammad Hugo Rayandra E   | 5027251076 |
 
 ---
 
