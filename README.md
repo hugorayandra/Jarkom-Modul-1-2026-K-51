@@ -451,6 +451,8 @@ Packet yang dapat diamati:
 ### Bukti Pengerjaan
 
 ![script](foto/soal6.png)
+![DNS](foto/filterdns6.png)
+![ICMP](foto/filtericmp6.png)
 
 ---
 
@@ -612,9 +614,8 @@ knights_report.txt
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot login FTP
-* [ ] Screenshot perintah `put`
-* [ ] Screenshot Wireshark transfer
+![loginftp](foto/soal8.png)
+![ftp](foto/filterftp8.png)
 
 ---
 
