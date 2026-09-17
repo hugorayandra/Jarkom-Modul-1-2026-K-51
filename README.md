@@ -450,9 +450,7 @@ Packet yang dapat diamati:
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot script nomor 6
-* [ ] Screenshot Wireshark DNS
-* [ ] Screenshot Wireshark ICMP
+![script](foto/soal6.png)
 
 ---
 
