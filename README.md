@@ -1045,10 +1045,7 @@ Kemudian jawab pertanyaan yang diberikan oleh service.
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot FTP Communication
-* [ ] Screenshot Malware File
-* [ ] Screenshot NC Challenge
-* [ ] Screenshot Jawaban
+![Soal 16](soal16.png)
 
 ---
 
@@ -1062,14 +1059,14 @@ Menganalisis traffic untuk menemukan informasi mengenai malware yang diunduh.
 
 | Informasi        | Jawaban     |
 | ---------------- | ----------- |
-| Host/Domain      | [ISI HASIL] |
-| IP Server        | [ISI HASIL] |
-| Nama Executable  | [ISI HASIL] |
-| HTTP Status Code | [ISI HASIL] |
+| Host/Domain      | `Wired-update.net` |
+| IP Server        | `203.0.113.42` |
+| Nama Executable  | `navi_agent.exe` |
+| HTTP Status Code | `200` |
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot nomor 17
+![Soal 17](soal17.png)
 
 ---
 
@@ -1083,7 +1080,7 @@ Menganalisis transfer file menggunakan protokol SMB2.
 
 | Informasi     | Jawaban                    |
 | ------------- | -------------------------- |
-| Protokol      | SMB2                       |
+| Protokol      | `SMB2`                      |
 | IP Pengirim   | `10.7.3.100`               |
 | IP Penerima   | `10.7.1.50`                |
 | Folder Tujuan | `System32`                 |
@@ -1119,8 +1116,8 @@ System32
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot SMB Packet
-* [ ] Screenshot SMB File Transfer
+![Soal 18](soal18.png)
+
 
 ---
 
@@ -1152,8 +1149,7 @@ Berdasarkan hasil analisis email:
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot SMTP
-* [ ] Screenshot Isi Email
+![Soal 19](soal19.png)
 
 ---
 
@@ -1187,9 +1183,8 @@ Berdasarkan hasil analisis traffic:
 
 ### Bukti Pengerjaan
 
-* [ ] Screenshot TLS Version
-* [ ] Screenshot SNI
-* [ ] Screenshot HTTP Request
+![Soal 20](soal20.png)
+
 
 ---
 
