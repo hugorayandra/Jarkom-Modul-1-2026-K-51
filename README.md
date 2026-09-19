@@ -1181,7 +1181,7 @@ Berdasarkan hasil analisis traffic:
 
 ### Bukti Pengerjaan
 
-![Soal 20](soal20.png)
+![Soal 20](foto/soal20.png)
 
 
 ---
