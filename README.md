@@ -614,8 +614,8 @@ knights_report.txt
 
 ### Bukti Pengerjaan
 
-![put](foto/soal9.png)
-![ftp9](foto/filterftp9.png)
+![put](soal9.png)
+![ftp9](filterftp9.png)
 
 ---
 
@@ -1043,7 +1043,7 @@ Kemudian jawab pertanyaan yang diberikan oleh service.
 
 ### Bukti Pengerjaan
 
-![Soal 16](soal16.png)
+![Soal 16](foto/soal16.png)
 
 ---
 
@@ -1064,7 +1064,7 @@ Menganalisis traffic untuk menemukan informasi mengenai malware yang diunduh.
 
 ### Bukti Pengerjaan
 
-![Soal 17](soal17.png)
+![Soal 17](foto/soal17.png)
 
 ---
 
@@ -1114,7 +1114,7 @@ System32
 
 ### Bukti Pengerjaan
 
-![Soal 18](soal18.png)
+![Soal 18](foto/soal18.png)
 
 
 ---
@@ -1147,7 +1147,7 @@ Berdasarkan hasil analisis email:
 
 ### Bukti Pengerjaan
 
-![Soal 19](soal19.png)
+![Soal 19](foto/soal19.png)
 
 ---
 
