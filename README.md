@@ -1227,6 +1227,9 @@ Dengan melakukan praktikum ini, pemahaman mengenai hubungan antara konfigurasi j
 
 ---
 
+# 25. Revisi
+Demonstrasi untuk soal nomor 13 terhambat pada saat sesi praktikum akibat terjadinya error pada GNS3. Setelah dilakukan perbaikan dan percobaan ulang secara mandiri, sistem telah kembali normal dan hasil konfigurasi berhasil didapatkan.
+
 # Author
 
 **Muhammad Hugo Rayandra Esmid**
